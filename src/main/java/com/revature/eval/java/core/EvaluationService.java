@@ -96,8 +96,8 @@ public String acronym(String phrase) {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral(Triangle tri) {
-			if(tri.getSideOne() == tri.getSideTwo() && tri.getSideOne() == tri.getSideThree()) {
+		public boolean isEquilateral() {
+			if(this.getSideOne() == this.getSideTwo() && this.getSideOne() == this.getSideThree()) {
 				return true;
 			}
 			else {
@@ -105,10 +105,10 @@ public String acronym(String phrase) {
 			}
 		}
 
-		public boolean isIsosceles(Triangle tri) {
-			if( tri.getSideOne() == tri.getSideTwo() || 
-				tri.getSideOne() == tri.getSideThree() || 
-				tri.getSideTwo() == tri.getSideThree()) {
+		public boolean isIsosceles() {
+			if( this.getSideOne() == this.getSideTwo() || 
+				this.getSideOne() == this.getSideThree() || 
+				this.getSideTwo() == this.getSideThree()) {
 				return true;
 			}
 			else {
@@ -116,10 +116,10 @@ public String acronym(String phrase) {
 			}
 		}
 		
-		public boolean isScalene(Triangle tri) {
-			if( tri.getSideOne() != tri.getSideTwo() && 
-				tri.getSideOne() != tri.getSideThree() &&
-				tri.getSideTwo() != tri.getSideThree()) {
+		public boolean isScalene() {
+			if( this.getSideOne() != this.getSideTwo() && 
+				this.getSideOne() != this.getSideThree() &&
+				this.getSideTwo() != this.getSideThree()) {
 				return true;
 			}
 			else {
@@ -145,8 +145,37 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int result = 0;
+		
+		for(int i=0; i<string.length(); i++) {
+			char temp = Character.toUpperCase(string.charAt(i));
+			
+			if( temp == 'A' || temp == 'E' || temp == 'I' || temp == 'O' || temp == 'U' || 
+				temp == 'L' || temp == 'N' || temp == 'R' || temp == 'S' || temp == 'T' ) {	
+				result++;
+			}
+			
+			else if( temp == 'D' || temp == 'G') {
+				result+=2; 
+			}
+			else if( temp == 'B' || temp == 'C' || temp == 'M' || temp == 'P') {
+				result+=3; 
+			}
+			else if( temp == 'F' || temp == 'H' || temp == 'V' || temp == 'W' || temp == 'Y') {
+				result+=4; 
+			}
+			else if( temp == 'K' ) {
+				result+=5; 
+			}
+			else if( temp == 'J' || temp == 'X') {
+				result+=8; 
+			}
+			else if( temp == 'Q' || temp == 'Z') {
+				result+=10; 
+			}
+			
+		}
+		return result;
 	}
 
 	/**
