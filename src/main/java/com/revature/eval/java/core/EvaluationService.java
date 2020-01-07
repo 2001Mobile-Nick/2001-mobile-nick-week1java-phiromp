@@ -4,6 +4,8 @@ import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
 
+import Test.Triangle;
+
 public class EvaluationService {
 
 	/**
@@ -29,9 +31,20 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
-	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+public String acronym(String phrase) {
+		
+		// create an array that splits the words from the phrase individually
+		String[] phraseArr = phrase.split(" "); 
+		
+		// initiate string for final acronym
+		String result = "";
+		
+		// loop through word array to concatenate the first character of each word
+        for(int i = 0; i < phraseArr.length; i++) {
+                result = result + phraseArr[i].charAt(0); 
+        }   
+        // return the acronym
+		return result;
 	}
 
 	/**
@@ -83,19 +96,35 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		public boolean isEquilateral(Triangle tri) {
+			if(tri.getSideOne() == tri.getSideTwo() && tri.getSideOne() == tri.getSideThree()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
-		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		public boolean isIsosceles(Triangle tri) {
+			if( tri.getSideOne() == tri.getSideTwo() || 
+				tri.getSideOne() == tri.getSideThree() || 
+				tri.getSideTwo() == tri.getSideThree()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-
-		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		
+		public boolean isScalene(Triangle tri) {
+			if( tri.getSideOne() != tri.getSideTwo() && 
+				tri.getSideOne() != tri.getSideThree() &&
+				tri.getSideTwo() != tri.getSideThree()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 	}
