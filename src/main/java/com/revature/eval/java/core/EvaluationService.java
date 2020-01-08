@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -398,7 +399,45 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
+		/*
+		List<Long> numList = new ArrayList<Long>();
+		long tempI = 0;
+		long tempJ = 0;
+		boolean prime = false; 
+		
+		for(int i = 1; i < l; i++) {
+			for(int j = 1; j < l; j++) {
+				tempI = i;
+				tempJ = j;
+				if(tempI*tempJ == l)
+					
+					numList.add(tempI);
+			}
+		}
+		
+		// remove the non-prime numbers
+		int index = 0;
+		int listLength = numList.size();
+		for(int i=0; i < listLength; i++) {
+			for(int j=2; j < numList.get(i); j++) {
+				// if number is divisible by another number not itself or 1
+				// then we know its not prime and to remove
+				if(numList.get(i) % j == 0) {
+					prime = true;
+				}
+					
+			}
+			if(prime) {
+				numList.remove(index);
+				listLength--;
+				i--;
+			}
+			else 
+				index++;
+		}
+		
+		return numList;
+		*/
 		return null;
 	}
 
@@ -654,8 +693,30 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int var1, var2;
+		
+		// Assuming all questions are prefaced with 'What is' and ends '?'
+		string = string.substring(8,string.length()-1);
+		
+		String[] strArr = string.split(" ");
+		var1 = Integer.parseInt(strArr[0]);
+		var2 = Integer.parseInt(strArr[strArr.length-1]);
+		
+		if(strArr[1].equals("plus")) {
+			return var1+var2;
+		}
+		else if(strArr[1].equals("minus")) {
+			return var1-var2;
+		}
+		else if(strArr[1].equals("divided")) {
+			return var1/var2;
+		}
+		else if(strArr[1].equals("multiplied")) {
+			return var1*var2;
+		}
+
+		else 
+			return 0;
 	}
 
 }
