@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -210,8 +211,13 @@ public String acronym(String phrase) {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		String result = string.replaceAll("[ +.-]","");
+		result = result.replaceAll("[()]","");
+		if(result.charAt(0) == '1')
+			result = result.substring(1);
+			
+		return result;
 	}
 
 	/**
@@ -224,8 +230,17 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] strArr = string.split(" ");
+		Map<String, Integer> result = new HashMap<String, Integer>();
+		
+		for(int i=0; i < strArr.length; i++) {
+			if(result.containsKey(strArr[i])) {
+				result.put(strArr[i], result.get(strArr[i]) + 1 );
+			}
+			else
+				result.put(strArr[i], 1);
+		}
+	return result;
 	}
 
 	/**
@@ -304,8 +319,20 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		char[] vowelArr = {'a', 'e', 'i', 'o', 'u'};
+		String result = string.toLowerCase(); 
+		
+		for(int i=0; i<vowelArr.length; i++) {
+			//System.out.println(vowelArr[i]);
+			if(string.charAt(0) == vowelArr[i]) {
+				result = result.substring(1).concat(Character.toString(vowelArr[i]));
+				break;
+			}
+		}
+		
+		result = result.concat("ay");
+		
+		return result;
 	}
 
 	/**
