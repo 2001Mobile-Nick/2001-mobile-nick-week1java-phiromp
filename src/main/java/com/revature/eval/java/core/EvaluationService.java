@@ -319,18 +319,31 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		char[] vowelArr = {'a', 'e', 'i', 'o', 'u'};
 		String result = string.toLowerCase(); 
 		
-		for(int i=0; i<vowelArr.length; i++) {
-			//System.out.println(vowelArr[i]);
-			if(string.charAt(0) == vowelArr[i]) {
-				result = result.substring(1).concat(Character.toString(vowelArr[i]));
-				break;
-			}
-		}
+		// for multiple word phrases
+		String[] strArr = result.split(" ");
 		
-		result = result.concat("ay");
+		for(int i=0; i<strArr.length; i++) {
+		
+			char first = strArr[i].charAt(0);
+			
+			// confirm first character is not a vowel for moving first character
+			while(first != 'a' && first != 'e' && first != 'i' && first != 'o' && first != 'u') {
+				strArr[i] = strArr[i].substring(1).concat(strArr[i].substring(0,1));
+				first = strArr[i].charAt(0);
+	
+			}
+			
+			// add "ay"
+			strArr[i] = strArr[i].concat("ay");
+			}
+		
+		// reset final result and concat the items from the array
+		result = strArr[0];
+		for(int i=1; i<strArr.length; i++) {
+			result = result + " " + strArr[i];
+		}
 		
 		return result;
 	}
@@ -351,8 +364,27 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		int power = 0;
+		int sum = 0;
+		int original = input;
+		
+		// loop to find the number of digits in the input
+		int temp = input;
+		while (temp > 0) {
+			temp = temp / 10;
+			power++;
+		}
+		
+		// loop to solve the sum of the digits^ #of digits
+		while (input > 0) {
+			temp=1;
+			for(int i=0; i<power; i++) {
+				temp = temp * (input%10);
+			}
+			sum += temp;
+			input = input/10;
+		}
+		return (original == sum);
 	}
 
 	/**
