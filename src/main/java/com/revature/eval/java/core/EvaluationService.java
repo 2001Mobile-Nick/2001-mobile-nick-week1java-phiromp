@@ -883,9 +883,21 @@ public String acronym(String phrase) {
 	 * @param set
 	 * @return
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public int getSumOfMultiples(int n, int[] set) {
+		int sum = 0;
+		
+		for( int j=1; j<n; j++) {
+			for( int i=0; i<set.length; i++) {
+				if(j%set[i] == 0) {
+					// System.out.println("yes");
+					sum += j;
+					// doesn't need to check other numbers in set
+					break;
+				}
+			}
+		}
+		
+	return sum;
 	}
 
 	/**
