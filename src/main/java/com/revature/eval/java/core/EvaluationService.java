@@ -35,18 +35,21 @@ public class EvaluationService {
 	 */
 public String acronym(String phrase) {
 		
-		// create an array that splits the words from the phrase individually
-		String[] phraseArr = phrase.split(" "); 
-		
-		// initiate string for final acronym
-		String result = "";
-		
-		// loop through word array to concatenate the first character of each word
-        for(int i = 0; i < phraseArr.length; i++) {
-                result = result + phraseArr[i].charAt(0); 
-        }   
-        // return the acronym
-		return result;
+	phrase = phrase.replace("-", " ");
+	System.out.println(phrase);
+	// create an array that splits the words from the phrase individually
+	String[] phraseArr = phrase.split(" "); 
+	
+	// initiate string for final acronym
+	String result = "";
+	
+	// loop through word array to concatenate the first character of each word
+    for(int i = 0; i < phraseArr.length; i++) {
+            result = result + phraseArr[i].charAt(0); 
+    }   
+    // return the acronym
+    result = result.toUpperCase();
+	return result;
 	}
 
 	/**
@@ -937,8 +940,33 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		int temp = 0, sum = 0;
+		String num = string.replaceAll("[ +.-]","");
+		if(string.charAt(0) == '0')
+			num = num.substring(1);
+			
+		if(string.length() <= 1) {
+			return false;
+		}
+		else {
+			for( int i=0; i<num.length(); i+=2) {
+				temp = Character.getNumericValue(num.charAt(i));
+				temp = temp*2;
+				if(temp>10) {
+					temp = temp - 9;
+				}
+				sum += temp;
+			}
+			for( int i=1; i<num.length(); i+=2) {
+				temp = Character.getNumericValue(num.charAt(i));
+				sum += temp;
+			}
+			
+			if(sum%10 == 0)
+				return true;
+			else
+				return false;
+		}
 	}
 
 	/**
