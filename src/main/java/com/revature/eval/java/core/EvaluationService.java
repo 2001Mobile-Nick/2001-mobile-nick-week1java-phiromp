@@ -326,7 +326,12 @@ public String acronym(String phrase) {
 		String[] strArr = result.split(" ");
 		
 		for(int i=0; i<strArr.length; i++) {
-		
+			
+			// special case for 'qu' apparently 
+			if(strArr[i].substring(0,2).equals("qu")) {
+				strArr[i] = strArr[i].substring(2).concat("qu");
+			}
+				
 			char first = strArr[i].charAt(0);
 			
 			// confirm first character is not a vowel for moving first character
@@ -475,11 +480,233 @@ public String acronym(String phrase) {
 			this.key = key;
 		}
 
-		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+		public static String rotate(String string) {
+		
+			List<String> abcList = new ArrayList<String>();
+			
+			int index;
+			boolean uCase = false;
+			
+			//string = string.toLowerCase();
+			//abcList = alphabet(abcList);
+			for(int i=0; i<string.length(); i++) {
+				uCase = Character.isUpperCase((string.charAt(i)));
+				
+				if(string.charAt(i) == 'a' || string.charAt(i) == 'A') {
+					if(uCase) {
+						string = string.substring(0,i) + 'N' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'n' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'b' || string.charAt(i) == 'B') {
+					if(uCase) {
+						string = string.substring(0,i) + 'O' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'o' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'c' || string.charAt(i) == 'C') {
+					if(uCase) {
+						string = string.substring(0,i) + 'P' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'p' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'd' || string.charAt(i) == 'D') {
+					if(uCase) {
+						string = string.substring(0,i) + 'Q' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'q' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'e' || string.charAt(i) == 'E') {
+					if(uCase) {
+						string = string.substring(0,i) + 'R' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'r' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'f' || string.charAt(i) == 'F') {
+					if(uCase) {
+						string = string.substring(0,i) + 'S' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 's' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'g' || string.charAt(i) == 'G') {
+					if(uCase) {
+						string = string.substring(0,i) + 'T' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 't' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'h' || string.charAt(i) == 'H') {
+					if(uCase) {
+						string = string.substring(0,i) + 'U' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'u' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'i' || string.charAt(i) == 'I') {
+					if(uCase) {
+						string = string.substring(0,i) + 'V' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'v' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'j' || string.charAt(i) == 'J') {
+					if(uCase) {
+						string = string.substring(0,i) + 'W' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'w' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'k' || string.charAt(i) == 'K') {
+					if(uCase) {
+						string = string.substring(0,i) + 'X' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'x' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'l' || string.charAt(i) == 'L') {
+					if(uCase) {
+						string = string.substring(0,i) + 'Y' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'y' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'm' || string.charAt(i) == 'M') {
+					if(uCase) {
+						string = string.substring(0,i) + 'Z' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'z' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'n' || string.charAt(i) == 'N') {
+					if(uCase) {
+						string = string.substring(0,i) + 'A' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'a' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'o' || string.charAt(i) == 'O') {
+					if(uCase) {
+						string = string.substring(0,i) + 'B' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'b' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'p' || string.charAt(i) == 'P') {
+					if(uCase) {
+						string = string.substring(0,i) + 'C' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'c' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'q' || string.charAt(i) == 'Q') {
+					if(uCase) {
+						string = string.substring(0,i) + 'D' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'd' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'r' || string.charAt(i) == 'R') {
+					if(uCase) {
+						string = string.substring(0,i) + 'E' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'e' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 's' || string.charAt(i) == 'S') {
+					if(uCase) {
+						string = string.substring(0,i) + 'F' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'f' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 't' || string.charAt(i) == 'T') {
+					if(uCase) {
+						string = string.substring(0,i) + 'G' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'g' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'u' || string.charAt(i) == 'U') {
+					if(uCase) {
+						string = string.substring(0,i) + 'H' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'h' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'v' || string.charAt(i) == 'V') {
+					if(uCase) {
+						string = string.substring(0,i) + 'I' + string.substring(i+1);
+						uCase = false;
+					}
+					
+					else
+						string = string.substring(0,i) + 'i' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'w' || string.charAt(i) == 'W') {
+					if(uCase) {
+						string = string.substring(0,i) + 'J' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'j' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'x' || string.charAt(i) == 'X') {
+					if(uCase) {
+						string = string.substring(0,i) + 'K' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'k' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'y' || string.charAt(i) == 'Y') {
+					if(uCase) {
+						string = string.substring(0,i) + 'L' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'l' + string.substring(i+1);
+				}
+				else if(string.charAt(i) == 'z' || string.charAt(i) == 'Z') {
+					if(uCase) {
+						string = string.substring(0,i) + 'M' + string.substring(i+1);
+						uCase = false;
+					}
+					else
+						string = string.substring(0,i) + 'm' + string.substring(i+1);
+				}
+				
+			}
+			
+			
+			return string;
 		}
-
 	}
 
 	/**
@@ -494,9 +721,46 @@ public String acronym(String phrase) {
 	 * @param i
 	 * @return
 	 */
-	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	public int calculateNthPrime(int n) {
+		int limit;
+	    int root;
+	    int count = 1;
+	    
+		// make cases for the first two prime numbers 
+	    if (n == 0) {
+	    	throw new IllegalArgumentException("n must be positive");
+	    }
+	    else if (n < 2) {
+	    	return 2;
+	    }
+	    else if (n == 2) { 
+	    	return 3;
+	    }
+	    
+	    limit = (int)(n*(Math.log(n) + Math.log(Math.log(n)))) + 3;
+	    root = (int)Math.sqrt(limit) + 1;
+
+	    limit = (limit-1)/2;
+	    root = root/2 - 1;
+	    
+	    boolean[] sieve = new boolean[limit];
+	    
+	    for(int i = 0; i < root; ++i) {
+	        if (!sieve[i]) {
+	            
+	            for(int j = 2*i*(i+3)+3, p = 2*i+3; j < limit; j += p) {
+	                sieve[j] = true;
+	            }
+	            count++;
+	        }
+	    }
+	    int p;
+	    for(p = root; count < n; ++p) {
+	        if (!sieve[p]) {
+	            count++;
+	        }
+	    }
+	    return 2*p+1;
 	}
 
 	/**
