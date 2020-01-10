@@ -302,6 +302,12 @@ public String acronym(String phrase) {
 					return i;
 				}
 			}
+			
+			// safety if for loop search doesn't find
+			if(sortedList.contains(t)) {
+				return sortedList.indexOf(t);
+			}
+			
 			return -1;
 		}
 
