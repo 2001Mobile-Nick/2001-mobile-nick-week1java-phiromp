@@ -223,12 +223,14 @@ public String acronym(String phrase) {
 		if(result.charAt(0) == '1')
 			result = result.substring(1);
 		
-		if(result
-				.matches("^[0-9]+$")) {
+		
+		if(result.matches("^[0-9]+$") && result.length()<11) {
 			return result;
 		}
 		else 
 			throw new IllegalArgumentException("non numeric number");
+		
+		
 	}
 
 	/**
