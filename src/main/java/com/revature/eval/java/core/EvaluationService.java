@@ -1,6 +1,10 @@
 package com.revature.eval.java.core;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +40,6 @@ public class EvaluationService {
 public String acronym(String phrase) {
 		
 	phrase = phrase.replace("-", " ");
-	System.out.println(phrase);
 	// create an array that splits the words from the phrase individually
 	String[] phraseArr = phrase.split(" "); 
 	
@@ -215,13 +218,17 @@ public String acronym(String phrase) {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		
 		String result = string.replaceAll("[ +.-]","");
 		result = result.replaceAll("[()]","");
 		if(result.charAt(0) == '1')
 			result = result.substring(1);
-			
-		return result;
+		
+		if(result
+				.matches("^[0-9]+$")) {
+			return result;
+		}
+		else 
+			throw new IllegalArgumentException("non numeric number");
 	}
 
 	/**
@@ -234,6 +241,7 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
+		string = string.replace("\n", "").replace("\r", "").replace(",", " ");
 		String[] strArr = string.split(" ");
 		Map<String, Integer> result = new HashMap<String, Integer>();
 		
@@ -286,7 +294,7 @@ public String acronym(String phrase) {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
+			
 			return 0;
 		}
 
@@ -407,6 +415,52 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
+		long num = l;
+		List<Long> primeList = new ArrayList<Long>();
+		List<Long> result = new ArrayList<Long>();
+
+		for(int i=2; i<100; i++) {
+			if(CheckPrime(i))
+				primeList.add(Long.valueOf(i));
+		}
+		//System.out.println(primeList);
+		boolean notDone = true;
+		
+		while(notDone) {
+			if(num == 2 || num == 3) {
+				result.add(num);
+				notDone = false;
+			}
+			else {
+			for(int i=0; i<primeList.size(); i++) {
+				if(num%primeList.get(i)==0) {
+					result.add(primeList.get(i));
+					num = num/primeList.get(i);
+					break;
+				}	
+				else if(i == primeList.size()-1) {
+					result.add(num);
+					notDone = false;
+				}
+			}
+				
+			}
+		}
+		
+		return result; 
+	}
+	
+	public boolean CheckPrime(int num) {
+		int remainder;
+        for (int i = 2; i <= num / 2; i++) {
+            remainder = num % i;
+            //if remainder is 0 than num  is not prime
+            if (remainder == 0) {
+                return false;
+            }
+        }
+        return true;
+	}
 		/*
 		List<Long> numList = new ArrayList<Long>();
 		long tempI = 0;
@@ -446,8 +500,7 @@ public String acronym(String phrase) {
 		
 		return numList;
 		*/
-		return null;
-	}
+		
 
 	/**
 	 * 11. Create an implementation of the rotational cipher, also sometimes called
@@ -483,233 +536,72 @@ public String acronym(String phrase) {
 			this.key = key;
 		}
 
-		public static String rotate(String string) {
-		
-			List<String> abcList = new ArrayList<String>();
+		public String rotate(String string) {
 			
-			int index;
 			boolean uCase = false;
+			List<String> abcList = new ArrayList<String>();
+			abcList = abcListFill(abcList);
 			
-			//string = string.toLowerCase();
-			//abcList = alphabet(abcList);
-			for(int i=0; i<string.length(); i++) {
-				uCase = Character.isUpperCase((string.charAt(i)));
-				
-				if(string.charAt(i) == 'a' || string.charAt(i) == 'A') {
-					if(uCase) {
-						string = string.substring(0,i) + 'N' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'n' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'b' || string.charAt(i) == 'B') {
-					if(uCase) {
-						string = string.substring(0,i) + 'O' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'o' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'c' || string.charAt(i) == 'C') {
-					if(uCase) {
-						string = string.substring(0,i) + 'P' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'p' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'd' || string.charAt(i) == 'D') {
-					if(uCase) {
-						string = string.substring(0,i) + 'Q' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'q' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'e' || string.charAt(i) == 'E') {
-					if(uCase) {
-						string = string.substring(0,i) + 'R' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'r' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'f' || string.charAt(i) == 'F') {
-					if(uCase) {
-						string = string.substring(0,i) + 'S' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 's' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'g' || string.charAt(i) == 'G') {
-					if(uCase) {
-						string = string.substring(0,i) + 'T' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 't' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'h' || string.charAt(i) == 'H') {
-					if(uCase) {
-						string = string.substring(0,i) + 'U' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'u' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'i' || string.charAt(i) == 'I') {
-					if(uCase) {
-						string = string.substring(0,i) + 'V' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'v' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'j' || string.charAt(i) == 'J') {
-					if(uCase) {
-						string = string.substring(0,i) + 'W' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'w' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'k' || string.charAt(i) == 'K') {
-					if(uCase) {
-						string = string.substring(0,i) + 'X' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'x' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'l' || string.charAt(i) == 'L') {
-					if(uCase) {
-						string = string.substring(0,i) + 'Y' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'y' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'm' || string.charAt(i) == 'M') {
-					if(uCase) {
-						string = string.substring(0,i) + 'Z' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'z' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'n' || string.charAt(i) == 'N') {
-					if(uCase) {
-						string = string.substring(0,i) + 'A' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'a' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'o' || string.charAt(i) == 'O') {
-					if(uCase) {
-						string = string.substring(0,i) + 'B' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'b' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'p' || string.charAt(i) == 'P') {
-					if(uCase) {
-						string = string.substring(0,i) + 'C' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'c' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'q' || string.charAt(i) == 'Q') {
-					if(uCase) {
-						string = string.substring(0,i) + 'D' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'd' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'r' || string.charAt(i) == 'R') {
-					if(uCase) {
-						string = string.substring(0,i) + 'E' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'e' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 's' || string.charAt(i) == 'S') {
-					if(uCase) {
-						string = string.substring(0,i) + 'F' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'f' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 't' || string.charAt(i) == 'T') {
-					if(uCase) {
-						string = string.substring(0,i) + 'G' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'g' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'u' || string.charAt(i) == 'U') {
-					if(uCase) {
-						string = string.substring(0,i) + 'H' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'h' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'v' || string.charAt(i) == 'V') {
-					if(uCase) {
-						string = string.substring(0,i) + 'I' + string.substring(i+1);
-						uCase = false;
-					}
-					
-					else
-						string = string.substring(0,i) + 'i' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'w' || string.charAt(i) == 'W') {
-					if(uCase) {
-						string = string.substring(0,i) + 'J' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'j' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'x' || string.charAt(i) == 'X') {
-					if(uCase) {
-						string = string.substring(0,i) + 'K' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'k' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'y' || string.charAt(i) == 'Y') {
-					if(uCase) {
-						string = string.substring(0,i) + 'L' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'l' + string.substring(i+1);
-				}
-				else if(string.charAt(i) == 'z' || string.charAt(i) == 'Z') {
-					if(uCase) {
-						string = string.substring(0,i) + 'M' + string.substring(i+1);
-						uCase = false;
-					}
-					else
-						string = string.substring(0,i) + 'm' + string.substring(i+1);
-				}
-				
-			}
-			
-			
-			return string;
+			  for(int i=0; i<string.length(); i++) {
+					  char letter = string.charAt(i);
+					  //System.out.println(letter);
+					  if(letter == '\'' || letter == ',' || letter == '!' || letter == ' ' || Character.isDigit(letter)) {
+						  // do nothing
+					  }
+					  else {
+						  //System.out.println(letter);
+						  uCase = Character.isUpperCase(letter);
+						  letter = Character.toLowerCase(letter);
+						  //System.out.println(uCase);
+						  int temp = abcList.indexOf(Character.toString(letter)); 
+						  temp += key;
+						  if(temp > 25)
+							  temp = temp-26;
+						  
+						  String replace = abcList.get(temp);
+						  if(uCase) {
+							  replace = replace.toUpperCase();
+							  uCase = false;
+						  }
+						  string = string.substring(0,i) + replace + string.substring(i+1); 
+					  }
+			  }
+				  
+			  return string;
 		}
+		public List<String> abcListFill(List<String> abcList) {
+			abcList.add("a");
+			abcList.add("b");
+			abcList.add("c");
+			abcList.add("d");
+			abcList.add("e");
+			abcList.add("f");
+			abcList.add("g");
+			abcList.add("h");
+			abcList.add("i");
+			abcList.add("j");
+			abcList.add("k");
+			abcList.add("l");
+			abcList.add("m");
+			abcList.add("n");
+			abcList.add("o");
+			abcList.add("p");
+			abcList.add("q");
+			abcList.add("r");
+			abcList.add("s");
+			abcList.add("t");
+			abcList.add("u");
+			abcList.add("v");
+			abcList.add("w");
+			abcList.add("x");
+			abcList.add("y");
+			abcList.add("z");
+
+			
+			
+			return abcList;
+		}
+		
 	}
 
 	/**
@@ -799,10 +691,85 @@ public String acronym(String phrase) {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			boolean uCase = false;
+			int count = 0;
+			List<String> abcList = new ArrayList<String>();
+			abcList = abcListFill(abcList);
+			string = string.replace(" ", "").replace(",", "").replace(".", "");
+			  for(int i=0; i<string.length(); i++) {
+				  char letter = string.charAt(i);
+				  if(letter == '\'' || letter == ',' || letter == '!' || letter == ' ' || letter == '.' ) {
+					  // do nothing
+				  }
+				  else if(Character.isDigit(letter)){
+					  count++;
+					  String l = Character.toString(letter);
+					  
+					  if(count == 5 && i!=string.length()-1) {
+						  l = l.concat(" ");
+						  count = 0;
+					  }
+					  string = string.substring(0,i) + l + string.substring(i+1); 
+				  }
+				  else {
+					  //System.out.println(letter);
+					  uCase = Character.isUpperCase(letter);
+					  letter = Character.toLowerCase(letter);
+					  //System.out.println(uCase);
+					  int temp = abcList.indexOf(Character.toString(letter)); 
+					  //.out.println(letter);
+					  //System.out.println(temp);
+					  temp = 25-temp;		  
+					  String replace = abcList.get(temp);
+					  if(uCase) {
+						  replace.toUpperCase();
+						  uCase = false;
+					  }
+					  
+					  count++;
+					  if(count == 5 && i!=string.length()-1) {
+						  replace = replace.concat(" ");
+						  count = 0;
+					  }
+					  string = string.substring(0,i) + replace + string.substring(i+1); 
+				  }
+			  }
+				  
+			  return string;
 		}
+		
+		public static List<String> abcListFill(List<String> abcList) {
+			abcList.add("a");
+			abcList.add("b");
+			abcList.add("c");
+			abcList.add("d");
+			abcList.add("e");
+			abcList.add("f");
+			abcList.add("g");
+			abcList.add("h");
+			abcList.add("i");
+			abcList.add("j");
+			abcList.add("k");
+			abcList.add("l");
+			abcList.add("m");
+			abcList.add("n");
+			abcList.add("o");
+			abcList.add("p");
+			abcList.add("q");
+			abcList.add("r");
+			abcList.add("s");
+			abcList.add("t");
+			abcList.add("u");
+			abcList.add("v");
+			abcList.add("w");
+			abcList.add("x");
+			abcList.add("y");
+			abcList.add("z");
 
+			
+			
+			return abcList;
+		}
 		/**
 		 * Question 14
 		 * 
@@ -810,8 +777,37 @@ public String acronym(String phrase) {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			boolean uCase = false;
+			List<String> abcList = new ArrayList<String>();
+			abcList = abcListFill(abcList);
+			string = string.replace(" ", "").replace(",", "").replace(".", "");
+			  for(int i=0; i<string.length(); i++) {
+				  char letter = string.charAt(i);
+				  if(letter == '\'' || letter == ',' || letter == '!' || letter == ' ' || letter == '.' ) {
+					  // do nothing
+				  }
+				  else if(Character.isDigit(letter)){
+					  string = string.substring(0,i) + letter + string.substring(i+1); 
+				  }
+				  else {
+					  //System.out.println(letter);
+					  uCase = Character.isUpperCase(letter);
+					  letter = Character.toLowerCase(letter);
+					  //System.out.println(uCase);
+					  int temp = abcList.indexOf(Character.toString(letter)); 
+					  //.out.println(letter);
+					  //System.out.println(temp);
+					  temp = 25-temp;			  
+					  String replace = abcList.get(temp);
+					  if(uCase) {
+						  replace.toUpperCase();
+						  uCase = false;
+					  }
+					  string = string.substring(0,i) + replace + string.substring(i+1); 
+				  }
+			  }
+				  
+			  return string;
 		}
 	}
 
@@ -838,8 +834,35 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		int sum=0;
+		
+		// create list of valid check characters
+		List<String> validate = new ArrayList<String>();
+		validate.add("X");
+		for(int i=0; i<10; i++) {
+			validate.add(Integer.toString(i));
+		}
+		// if last character isn't valid return false
+		if(!validate.contains(Character.toString(string.charAt(string.length()-1)))) {
+			return false;
+		}
+		
+		string = string.replace("-", "");
+
+		for(int i=0, j=10; i<string.length(); i++, j--) {
+			if(string.charAt(i) == 'X') {
+				sum += 10;
+			}
+			else {
+				int a = Character.getNumericValue(string.charAt(i));
+				sum += (j*a);
+			}
+		}
+		
+		if(sum%11 == 0)
+			return true;
+		else 
+			return false;
 	}
 
 	/**
@@ -856,8 +879,22 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'};
+		// store input string into search array
+		// loop through alphabet and search for character in input
+		// if letter not found return false, else true
+		ArrayList<Object> letters = new ArrayList<>();
+		for( int i=0; i<string.length(); i++) {
+			letters.add(string.charAt(i));
+		}
+		
+		for(char l : alphabet) {
+			if(!letters.contains(l)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/**
@@ -869,8 +906,22 @@ public String acronym(String phrase) {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+//		1 billion seconds converts to 11574 days 1 hour 46 minutes 40 seconds
+//		TemporalAdjuster tempAdj = t -> t.plus(Period.ofDays(11574));		
+//		Temporal result = given.with(tempAdj);
+//		exact.plusHours(1);
+//		exact.plusMinutes(46);
+//		exact.plusSeconds(40);
+		
+		LocalDateTime exact;
+		if(given.getClass()==LocalDate.class) {
+			exact = ((LocalDate)given).atStartOfDay();
+		}
+		else
+			exact = LocalDateTime.from(given);
+		
+		
+		return exact.plusSeconds(1000000000);
 	}
 
 	/**
