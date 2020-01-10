@@ -2,16 +2,11 @@ package com.revature.eval.java.core;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import Test.Triangle;
 
 public class EvaluationService {
 
@@ -304,9 +299,9 @@ public String acronym(String phrase) {
 			}
 			
 			// safety if for loop search doesn't find
-//			if(sortedList.contains(t)) {
-//				return sortedList.indexOf(t);
-//			}
+			if(sortedList.contains(t)) {
+				return sortedList.indexOf(t);
+			}
 			
 			return -1;
 		}
