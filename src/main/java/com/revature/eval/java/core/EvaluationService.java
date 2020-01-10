@@ -6,6 +6,7 @@ import java.time.Period;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -294,10 +295,14 @@ public String acronym(String phrase) {
 	 */
 	static class BinarySearch<T> {
 		private List<T> sortedList;
-
+		
 		public int indexOf(T t) {
-			
-			return 0;
+			for(int i=0; i<sortedList.size(); i++) {
+				if(t == sortedList.get(i)){
+					return i;
+				}
+			}
+			return -1;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -547,7 +552,7 @@ public String acronym(String phrase) {
 			  for(int i=0; i<string.length(); i++) {
 					  char letter = string.charAt(i);
 					  //System.out.println(letter);
-					  if(letter == '\'' || letter == ',' || letter == '!' || letter == ' ' || Character.isDigit(letter)) {
+					  if(letter == '\'' || letter == ',' || letter == '!' || letter == ' ' || Character.isDigit(letter) || letter == '.' ){
 						  // do nothing
 					  }
 					  else {
@@ -598,8 +603,6 @@ public String acronym(String phrase) {
 			abcList.add("x");
 			abcList.add("y");
 			abcList.add("z");
-
-			
 			
 			return abcList;
 		}
